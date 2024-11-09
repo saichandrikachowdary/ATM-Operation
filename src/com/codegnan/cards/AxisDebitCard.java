@@ -10,9 +10,8 @@ import com.codegnan.customExceptions.NotAOperatorException;
 import com.codegnan.interfaces.IATMService;
 
 public class AxisDebitCard implements IATMService {
-
 	String name;
-long debitCardNumber;
+	long debitCardNumber;
 	double accountBalance;
 	int pinNumber;
 	ArrayList<String> statement;
@@ -25,20 +24,15 @@ long debitCardNumber;
 		this.accountBalance = accountBalance;
 		this.pinNumber = pinNumber;
 		statement = new ArrayList<>();
+
 	}
 
 	@Override
-
 	public String getUserType() throws NotAOperatorException {
-
-		// TODO Auto-generated method stub
-
 		return type;
-
 	}
 
 	@Override
-
 	public double withdrawAmount(double wthAmount)
 			throws InvalidAmountException, InsufficientBalanceException, InsufficientMachineBalanceException {
 		// TODO Auto-generated method stub
@@ -46,116 +40,87 @@ long debitCardNumber;
 			throw new InvalidAmountException("you can enter zero(0) amount to wuuthdraw.pls enter valid amount");
 		} else if (wthAmount % 100 != 0) {
 			throw new InvalidAmountException("please withdraw multiples of 100");
-
 		} else if (wthAmount < 500) {
-
 			throw new InsufficientBalanceException("please withdraw more than 500 rupees");
-
 		} else if (wthAmount > accountBalance) {
-
 			throw new InsufficientBalanceException(
 					"you dont have sufficient balance to withdraw ..please check your account balance");
-
 		} else {
 			accountBalance = accountBalance - wthAmount;
-
 			statement.add("Debited : " + wthAmount);
-
 			return wthAmount;
-
 		}
-
 	}
 
 	@Override
-
 	public void depositAmount(double deptAmount) throws InvalidAmountException {
 		if (deptAmount <= 0 || deptAmount % 100 != 0 || deptAmount < 500) {// logical or = any one is true
-
 			throw new InvalidAmountException("Please deposit multiples of 100 and deposit more than 500");
-
 		} else {
-
 			accountBalance = accountBalance + deptAmount;
-
 			statement.add("credited:" + deptAmount);
-
 		}
 	}
 
 	@Override
-
 	public double checkAccountBalance() {
-
+		// TODO Auto-generated method stub
 		return accountBalance;
-
 	}
 
 	@Override
-
 	public void changePinNumber(int pinNumber) {
-
+		// TODO Auto-generated method stub
 		this.pinNumber = pinNumber;
+
 	}
 
 	@Override
-
 	public int getPinNumber() {
-
 		return pinNumber;
-
 	}
 
 	@Override
-
 	public String getUserName() {
-
+		// TODO Auto-generated method stub
 		return name;
-
 	}
 
 	@Override
-
 	public void decreaseChances() {
-
 		--chances;
 
 	}
 
 	@Override
-
 	public int getChances() {
-
 		return chances;
 	}
 
 	@Override
-
 	public void resetPinChances() {
-
 		chances = 3;
 
 	}
 
 	@Override
-
 	public void generateMiniStatement() {
-
 		int count = 5;
 		if (statement.size() == 0) {
-			System.out.println("There are no Transactions Happend");
+			System.out.println("there are no transactions happened");
 			return;
 		}
-		System.out.println("=============== List 5  Transactions============");
+		System.out.println("==========================list of 5 transactions===================== ");
 		Collections.reverse(statement);
 		for(String trans:statement) {
-			if(count == 0) {
+			if(count==0) {
 				break;
 			}
 			System.out.println(trans);
 			count--;
 		}
 		Collections.reverse(statement);
+
 	}
 
 }
